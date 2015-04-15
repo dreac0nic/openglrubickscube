@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 
 #include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "glslu.hpp"
 
@@ -14,6 +16,11 @@ void glfw_err_callback(int code, const char* message);
 
 using namespace std;
 using glm::vec3;
+using glm::mat4;
+using glm::perspective;
+using glm::translate;
+using glm::scale;
+using glm::rotate;
 using glslu::Program;
 
 int main(int argc, char* argv[])
@@ -93,7 +100,7 @@ int main(int argc, char* argv[])
 
   // Setup shader program
   Program basicProgram;
-  basicProgram.compileShader("src/shaders/passthrough.glsl.vert");
+  basicProgram.compileShader("src/shaders/simplemvp.glsl.vert");
   basicProgram.compileShader("src/shaders/red.glsl.frag");
 
   basicProgram.link();
@@ -106,6 +113,12 @@ int main(int argc, char* argv[])
     return -1;
   } else
     basicProgram.use();
+
+  // Setup scene matrices
+  mat4 projection = perspective(45.0f, 4.0f/3.0f, 0.1f, 100.0f);
+  mat4 view = rotate(translate(mat4(1.0f), vec3(0.0f, 0.0f, -2.0f)), 45.0f, vec3(1.0f, 1.0f, 0.0f));
+  mat4 model = mat4(1.0f);
+  mat4 mvp = projection*view*model;
 
   // Setup cube poitns
   static const vec3 cube_data[] = {
@@ -176,6 +189,9 @@ int main(int argc, char* argv[])
   gl::VertexAttribPointer(0, 3, gl::FLOAT, gl::FALSE_, 0, NULL);
 
   gl::ClearColor(0.95f, 0.95f, 0.95f, 1.0f);
+
+  // Set uniform, as it won't need be changed.
+  basicProgram.setUniform("mvp", mvp);
 
   // Enter main loop of application.
   while(!glfwWindowShouldClose(hWindow)) {
