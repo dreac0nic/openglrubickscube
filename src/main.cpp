@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
 
   // Setup scene matrices
   mat4 projection = perspective(45.0f, 4.0f/3.0f, 0.1f, 100.0f);
-  mat4 view = rotate(translate(mat4(1.0f), vec3(0.0f, 0.0f, -2.0f)), 45.0f, vec3(1.0f, 1.0f, 0.0f));
+  mat4 view = rotate(translate(mat4(1.0f), vec3(0.0f, 0.0f, -8.0f)), 45.0f, vec3(1.0f, 1.0f, 0.0f));
   mat4 model = mat4(1.0f);
   mat4 mvp = projection*view*model;
 
@@ -191,15 +191,31 @@ int main(int argc, char* argv[])
   gl::ClearColor(0.95f, 0.95f, 0.95f, 1.0f);
 
   // Set uniform, as it won't need be changed.
-  basicProgram.setUniform("mvp", mvp);
+  basicProgram.setUniform("projection", projection);
+  basicProgram.setUniform("view", view);
 
   // Enter main loop of application.
   while(!glfwWindowShouldClose(hWindow)) {
     // Clear window
     gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
-    // Render cube
-    gl::DrawArrays(gl::TRIANGLES, 0, 6*2*3);
+    for(int x = -1; x < 2; ++x) {
+      for(int y = -1; y < 2; ++y) {
+        for(int z = -1; z < 2; ++z) {
+          mat4 model;
+          float scale = 1.0f;
+          float spacing = 0.8f;
+          float offset = scale + spacing;
+
+          // Calculate model matrix!
+          mat4 cubeModel = glm::scale(translate(mat4(1.0f), vec3(x*offset, y*offset, z*offset)), vec3(scale));
+          basicProgram.setUniform("model", cubeModel);
+
+          // Render the current cube.
+          gl::DrawArrays(gl::TRIANGLES, 0, 6*2*3);
+        }
+      }
+    }
 
     gl::Flush();
 
