@@ -23,6 +23,8 @@ using glm::scale;
 using glm::rotate;
 using glslu::Program;
 
+typedef enum { MOUSE_RELEASED, MOUSE_LEFT_DRAG, MOUSE_RIGHT_DRAG } mouse_state;
+
 int main(int argc, char* argv[])
 {
   GLFWwindow* hWindow;
@@ -194,11 +196,34 @@ int main(int argc, char* argv[])
   basicProgram.setUniform("projection", projection);
   basicProgram.setUniform("view", view);
 
+  // Setup mouse positions.
+  mouse_state currentMouseState = MOUSE_RELEASED;
+
   // Enter main loop of application.
   while(!glfwWindowShouldClose(hWindow)) {
     // Clear window
     gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
+    // Check mouse input
+    if(glfwGetMouseButton(hWindow, 1) == GLFW_PRESS) {
+      double x, y;
+      vec2 mouseDelta;
+
+      if(currentMouseState == MOUSE_RIGHT_DRAG) {
+        glfwGetCursorPos(hWindow, &x, &y);
+        glfwSetCursorPos(hWindow, x, y);
+
+        mouseDelta = vec2(x, y);
+      } else {
+        glfwSetCursorPos(hWindow, 0.0, 0.0);
+
+        mouseDelta = vec2(0f, 0f);
+      }
+    } else {
+      currentMouseState = MOUSE_RELEASED;
+    }
+
+    // Draw Rubick's Cube :DDDDD
     for(int x = -1; x < 2; ++x) {
       for(int y = -1; y < 2; ++y) {
         for(int z = -1; z < 2; ++z) {
