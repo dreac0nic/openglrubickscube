@@ -205,6 +205,9 @@ int main(int argc, char* argv[])
   basicProgram.setUniform("projection", projection);
   basicProgram.setUniform("view", view);
 
+  // Setup rotation modifiers
+  float rotate_factor = 0.001f;
+
   // Setup mouse positions.
   glm::vec2 originalMousePosition;
   mouse_state currentMouseState = MOUSE_RELEASED;
@@ -229,6 +232,13 @@ int main(int argc, char* argv[])
       glfwSetCursorPos(hWindow, window_width/2, window_height/2);
 
       mouseDelta = glm::vec2(x - window_width/2.0, y - window_height/2.0);
+
+      // Rotate view inversly.
+      view = glm::rotate(view, rotate_factor*mouseDelta.x, vec3(0.0f, 1.0f, 0.0f));
+      view = glm::rotate(view, rotate_factor*mouseDelta.y, vec3(1.0f, 0.0f, 0.0f));
+
+      // Set uniform.
+      basicProgram.setUniform("view", view);
     } else {
       double x, y;
 
