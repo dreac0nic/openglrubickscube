@@ -215,34 +215,33 @@ int main(int argc, char* argv[])
     gl::Clear(gl::COLOR_BUFFER_BIT );
 
     // Check mouse input
-    if(glfwGetMouseButton(hWindow, 1) == GLFW_PRESS) {
+    if(glfwGetMouseButton(hWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
       double x, y;
       glm::vec2 mouseDelta;
 
-      if(currentMouseState == MOUSE_RIGHT_DRAG)
-        glfwGetCursorPos(hWindow, &x, &y);
-      else
-        x = y = 0.0f;
+      // Set current state for pressing.
+      if(currentMouseState != MOUSE_RIGHT_DRAG) {
+        currentMouseState = MOUSE_RIGHT_DRAG;
+        glfwSetInputMode(hWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+      }
 
+      glfwGetCursorPos(hWindow, &x, &y);
       glfwSetCursorPos(hWindow, window_width/2, window_height/2);
 
-      mouseDelta = glm::vec2((x - window_width/2), y - window_height/2);
-
-      cout << glm::to_string(mouseDelta) << endl;
+      mouseDelta = glm::vec2(x - window_width/2.0, y - window_height/2.0);
     } else {
       double x, y;
+
+      // Set state to released.
+      if(currentMouseState != MOUSE_RELEASED) {
+        currentMouseState = MOUSE_RELEASED;
+        glfwSetInputMode(hWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetCursorPos(hWindow, originalMousePosition.x, originalMousePosition.y);
+      }
+
       glfwGetCursorPos(hWindow, &x, &y);
 
-      originalMousePosition = glm::vec2((float)x, (float)y);
-
-      cout << "IT'S HAPPENING!" << endl;
-
-      glm::to_string(originalMousePosition);
-
-      if(currentMouseState != MOUSE_RELEASED) {
-        glfwSetCursorPos(hWindow, originalMousePosition.x, originalMousePosition.y);
-        currentMouseState = MOUSE_RELEASED;
-      }
+      originalMousePosition = glm::vec2((float)(x), (float)(y));
     }
 
     // Draw Rubick's Cube :DDDDD
