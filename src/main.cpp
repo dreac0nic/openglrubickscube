@@ -212,7 +212,7 @@ int main(int argc, char* argv[])
   // Enter main loop of application.
   while(!glfwWindowShouldClose(hWindow)) {
     // Clear window
-    gl::Clear(gl::COLOR_BUFFER_BIT );
+    gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
     // Check mouse input
     if(glfwGetMouseButton(hWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
