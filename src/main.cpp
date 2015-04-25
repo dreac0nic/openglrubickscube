@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
   glfwSetErrorCallback([](int code, const char* message) -> void {
     cerr << "GLFW ERR[" << code << "]: " << message; });
 
-  // Load application framworks00...
+  // Load application frameworks...
   cerr << "INITIALIZING SYSTEMS" << endl
        << "--------------------" << endl;
 
@@ -168,7 +168,7 @@ int main(int argc, char* argv[])
 
     vec3( 0.5f,  0.5f,  0.5f),
     vec3(-0.5f,  0.5f,  0.5f),
-    vec3( 0.5f, -0.5f,  0.5f),
+    vec3( 0.5f, -0.5f,  0.5f)
   };
 
   // Setup buffer for cube.
