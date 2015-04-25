@@ -7,8 +7,12 @@
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #include "glslu.hpp"
+
+#define VIEWPORT_WIDTH  640
+#define VIEWPORT_HEIGHT 480
 
 #define ERRLOG(errstr) std::cerr << "ERR [" << __FILE__ << ":" << __LINE__ << "] " << errstr << std::endl;
 
@@ -27,6 +31,7 @@ typedef enum { MOUSE_RELEASED, MOUSE_LEFT_DRAG, MOUSE_RIGHT_DRAG } mouse_state;
 
 int main(int argc, char* argv[])
 {
+  int window_width, window_height;
   GLFWwindow* hWindow;
 
   // Set error callback, because GLFW is being persnickety.
@@ -36,6 +41,10 @@ int main(int argc, char* argv[])
   // Load application frameworks...
   cerr << "INITIALIZING SYSTEMS" << endl
        << "--------------------" << endl;
+
+  // TODO: Do stuff with window parameters or whatever.
+  window_width = VIEWPORT_WIDTH;
+  window_height = VIEWPORT_HEIGHT;
 
   // Initialize GLFW and check for errors.
   cerr << "\tGLFW ... \t";
@@ -58,7 +67,7 @@ int main(int argc, char* argv[])
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
   // Attempt to create window based on context.
-  hWindow = glfwCreateWindow(640, 480, "WINDOW", NULL, NULL);
+  hWindow = glfwCreateWindow(window_width, window_height, "WINDOW", NULL, NULL);
   if(!hWindow) {
     ERRLOG("Could not create a window!");
 
@@ -197,30 +206,43 @@ int main(int argc, char* argv[])
   basicProgram.setUniform("view", view);
 
   // Setup mouse positions.
+  glm::vec2 originalMousePosition;
   mouse_state currentMouseState = MOUSE_RELEASED;
 
   // Enter main loop of application.
   while(!glfwWindowShouldClose(hWindow)) {
     // Clear window
-    gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+    gl::Clear(gl::COLOR_BUFFER_BIT );
 
     // Check mouse input
     if(glfwGetMouseButton(hWindow, 1) == GLFW_PRESS) {
       double x, y;
-      vec2 mouseDelta;
+      glm::vec2 mouseDelta;
 
-      if(currentMouseState == MOUSE_RIGHT_DRAG) {
+      if(currentMouseState == MOUSE_RIGHT_DRAG)
         glfwGetCursorPos(hWindow, &x, &y);
-        glfwSetCursorPos(hWindow, x, y);
+      else
+        x = y = 0.0f;
 
-        mouseDelta = vec2(x, y);
-      } else {
-        glfwSetCursorPos(hWindow, 0.0, 0.0);
+      glfwSetCursorPos(hWindow, window_width/2, window_height/2);
 
-        mouseDelta = vec2(0f, 0f);
-      }
+      mouseDelta = glm::vec2((x - window_width/2), y - window_height/2);
+
+      cout << glm::to_string(mouseDelta) << endl;
     } else {
-      currentMouseState = MOUSE_RELEASED;
+      double x, y;
+      glfwGetCursorPos(hWindow, &x, &y);
+
+      originalMousePosition = glm::vec2((float)x, (float)y);
+
+      cout << "IT'S HAPPENING!" << endl;
+
+      glm::to_string(originalMousePosition);
+
+      if(currentMouseState != MOUSE_RELEASED) {
+        glfwSetCursorPos(hWindow, originalMousePosition.x, originalMousePosition.y);
+        currentMouseState = MOUSE_RELEASED;
+      }
     }
 
     // Draw Rubick's Cube :DDDDD
