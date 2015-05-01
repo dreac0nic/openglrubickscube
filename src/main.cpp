@@ -4,6 +4,7 @@
 #include "gl_core_4_4.hpp"
 #include <GLFW/glfw3.h>
 
+#include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -19,6 +20,7 @@
 void glfw_err_callback(int code, const char* message);
 
 using namespace std;
+using glm::vec2;
 using glm::vec3;
 using glm::mat4;
 using glm::perspective;
@@ -112,7 +114,7 @@ int main(int argc, char* argv[])
   // Setup shader program
   Program basicProgram;
   basicProgram.compileShader("src/shaders/simplemvp.glsl.vert");
-  basicProgram.compileShader("src/shaders/red.glsl.frag");
+  basicProgram.compileShader("src/shaders/weirdcolors.glsl.frag");
 
   basicProgram.link();
 
@@ -206,7 +208,9 @@ int main(int argc, char* argv[])
   basicProgram.setUniform("view", view);
 
   // Setup rotation modifiers
+  float orbit_radius = 8.0f;
   float rotate_factor = 0.001f;
+  vec2 rotate_angles = vec2(0.0f, 0.0f);
 
   // Setup mouse positions.
   glm::vec2 originalMousePosition;
@@ -234,8 +238,21 @@ int main(int argc, char* argv[])
       mouseDelta = glm::vec2(x - window_width/2.0, y - window_height/2.0);
 
       // Rotate view inversly.
-      view = glm::rotate(view, rotate_factor*mouseDelta.x, vec3(0.0f, 1.0f, 0.0f));
-      view = glm::rotate(view, rotate_factor*mouseDelta.y, vec3(1.0f, 0.0f, 0.0f));
+      rotate_angles.x += rotate_factor*mouseDelta.x;
+      rotate_angles.y += rotate_factor*mouseDelta.y;
+
+      if(rotate_angles.y < -1)
+        rotate_angles.y = -1;
+      else if(rotate_angles.y > 1)
+        rotate_angles.y = 1;
+
+      // Calculate new camera position.
+      vec3 cameraPosition = vec3(orbit_radius*cos(rotate_angles.x),
+                                 orbit_radius*sin(rotate_angles.y),
+                                 orbit_radius*sin(rotate_angles.x));
+
+      // Set look-at vector.
+      view = glm::lookAt(cameraPosition, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
       // Set uniform.
       basicProgram.setUniform("view", view);
@@ -258,9 +275,12 @@ int main(int argc, char* argv[])
     for(int x = -1; x < 2; ++x) {
       for(int y = -1; y < 2; ++y) {
         for(int z = -1; z < 2; ++z) {
+          if(x == 0 && y == 0 && z == 0)
+            continue;
+
           mat4 model;
           float scale = 1.0f;
-          float spacing = 0.8f;
+          float spacing = 0.1f;
           float offset = scale + spacing;
 
           // Calculate model matrix!
