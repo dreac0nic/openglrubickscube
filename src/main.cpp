@@ -306,7 +306,7 @@ int main(int argc, char* argv[])
   basicProgram.setUniform("view", view);
 
   // Setup rotation modifiers
-  float orbit_radius = 2.0f;
+  float orbit_radius = 8.0f;
   float rotate_factor = 0.001f;
   vec2 rotate_angles = vec2(0.0f, 0.0f);
 
@@ -373,7 +373,7 @@ int main(int argc, char* argv[])
     for(int x = -1; x < 2; ++x) {
       for(int y = -1; y < 2; ++y) {
         for(int z = -1; z < 2; ++z) {
-          if(x != 0 || y != 0 || z != 0)
+          if(x == 0 && y == 0 && z == 0)
             continue;
 
           mat4 model;
