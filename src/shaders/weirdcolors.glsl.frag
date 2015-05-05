@@ -6,5 +6,5 @@ out vec4 gl_FragColor;
 
 void main()
 {
-	gl_FragColor = vec4(color_position.x, color_position.y, color_position.z, 1.0);
+	gl_FragColor = vec4(color_position.x + 0.5, color_position.y + 0.5, color_position.z + 0.5, 1.0);
 }

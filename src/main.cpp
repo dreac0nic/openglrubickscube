@@ -134,55 +134,153 @@ int main(int argc, char* argv[])
   mat4 mvp = projection*view*model;
 
   // Setup cube poitns
-  static const vec3 cube_data[] = {
-    vec3(-0.5f, -0.5f, -0.5f),
-    vec3(-0.5f, -0.5f,  0.5f),
-    vec3(-0.5f,  0.5f,  0.5f),
-
-    vec3( 0.5f,  0.5f, -0.5f),
-    vec3(-0.5f, -0.5f, -0.5f),
-    vec3(-0.5f,  0.5f, -0.5f),
-
-    vec3( 0.5f, -0.5f,  0.5f),
-    vec3(-0.5f, -0.5f, -0.5f),
-    vec3( 0.5f, -0.5f, -0.5f),
-
-    vec3( 0.5f,  0.5f, -0.5f),
-    vec3( 0.5f, -0.5f, -0.5f),
-    vec3(-0.5f, -0.5f, -0.5f),
-
-    vec3(-0.5f, -0.5f, -0.5f),
-    vec3(-0.5f,  0.5f,  0.5f),
-    vec3(-0.5f,  0.5f, -0.5f),
-
-    vec3( 0.5f, -0.5f,  0.5f),
-    vec3(-0.5f, -0.5f,  0.5f),
-    vec3(-0.5f, -0.5f, -0.5f),
-
-    vec3(-0.5f,  0.5f,  0.5f),
-    vec3(-0.5f, -0.5f,  0.5f),
-    vec3( 0.5f, -0.5f,  0.5f),
-
-    vec3( 0.5f,  0.5f,  0.5f),
-    vec3( 0.5f, -0.5f, -0.5f),
-    vec3( 0.5f,  0.5f, -0.5f),
-
-    vec3( 0.5f, -0.5f, -0.5f),
-    vec3( 0.5f,  0.5f,  0.5f),
-    vec3( 0.5f, -0.5f,  0.5f),
-
+  static const vec3 vertex_data[] = {
+    //*
     vec3( 0.5f,  0.5f,  0.5f),
     vec3( 0.5f,  0.5f, -0.5f),
     vec3(-0.5f,  0.5f, -0.5f),
-
-    vec3( 0.5f,  0.5f,  0.5f),
-    vec3(-0.5f,  0.5f, -0.5f),
     vec3(-0.5f,  0.5f,  0.5f),
 
-    vec3( 0.5f,  0.5f,  0.5f),
-    vec3(-0.5f,  0.5f,  0.5f),
-    vec3( 0.5f, -0.5f,  0.5f)
+    vec3( 0.5f, -0.5f,  0.5f),
+    vec3( 0.5f, -0.5f, -0.5f),
+    vec3(-0.5f, -0.5f, -0.5f),
+    vec3(-0.5f, -0.5f,  0.5f)
+    //*/
   };
+
+  static const float cube_data[] = {
+    //*
+    // Top
+    vertex_data[2][0],
+    vertex_data[2][1],
+    vertex_data[2][2],
+    vertex_data[1][0],
+    vertex_data[1][1],
+    vertex_data[1][2],
+    vertex_data[0][0],
+    vertex_data[0][1],
+    vertex_data[0][2],
+
+    vertex_data[2][0],
+    vertex_data[2][1],
+    vertex_data[2][2],
+    vertex_data[0][0],
+    vertex_data[0][1],
+    vertex_data[0][2],
+    vertex_data[3][0],
+    vertex_data[3][1],
+    vertex_data[3][2],
+
+    // Bottom
+    vertex_data[4][0],
+    vertex_data[4][1],
+    vertex_data[4][2],
+    vertex_data[5][0],
+    vertex_data[5][1],
+    vertex_data[5][2],
+    vertex_data[6][0],
+    vertex_data[6][1],
+    vertex_data[6][2],
+
+    vertex_data[4][0],
+    vertex_data[4][1],
+    vertex_data[4][2],
+    vertex_data[6][0],
+    vertex_data[6][1],
+    vertex_data[6][2],
+    vertex_data[7][0],
+    vertex_data[7][1],
+    vertex_data[7][2],
+
+    // Left
+    vertex_data[0][0],
+    vertex_data[0][1],
+    vertex_data[0][2],
+    vertex_data[1][0],
+    vertex_data[1][1],
+    vertex_data[1][2],
+    vertex_data[5][0],
+    vertex_data[5][1],
+    vertex_data[5][2],
+
+    vertex_data[0][0],
+    vertex_data[0][1],
+    vertex_data[0][2],
+    vertex_data[5][0],
+    vertex_data[5][1],
+    vertex_data[5][2],
+    vertex_data[4][0],
+    vertex_data[4][1],
+    vertex_data[4][2],
+
+    // Right
+    vertex_data[3][0],
+    vertex_data[3][1],
+    vertex_data[3][2],
+    vertex_data[6][0],
+    vertex_data[6][1],
+    vertex_data[6][2],
+    vertex_data[7][0],
+    vertex_data[7][1],
+    vertex_data[7][2],
+
+    vertex_data[3][0],
+    vertex_data[3][1],
+    vertex_data[3][2],
+    vertex_data[2][0],
+    vertex_data[2][1],
+    vertex_data[2][2],
+    vertex_data[6][0],
+    vertex_data[6][1],
+    vertex_data[6][2],
+
+    // Front
+    vertex_data[3][0],
+    vertex_data[3][1],
+    vertex_data[3][2],
+    vertex_data[0][0],
+    vertex_data[0][1],
+    vertex_data[0][2],
+    vertex_data[4][0],
+    vertex_data[4][1],
+    vertex_data[4][2],
+
+    vertex_data[3][0],
+    vertex_data[3][1],
+    vertex_data[3][2],
+    vertex_data[4][0],
+    vertex_data[4][1],
+    vertex_data[4][2],
+    vertex_data[7][0],
+    vertex_data[7][1],
+    vertex_data[7][2],
+
+    // Back
+    vertex_data[1][0],
+    vertex_data[1][1],
+    vertex_data[1][2],
+    vertex_data[2][0],
+    vertex_data[2][1],
+    vertex_data[2][2],
+    vertex_data[5][0],
+    vertex_data[5][1],
+    vertex_data[5][2],
+
+    vertex_data[2][0],
+    vertex_data[2][1],
+    vertex_data[2][2],
+    vertex_data[6][0],
+    vertex_data[6][1],
+    vertex_data[6][2],
+    vertex_data[5][0],
+    vertex_data[5][1],
+    vertex_data[5][2]
+    //*/
+  };
+
+  // State setup
+  gl::CullFace(gl::FRONT_AND_BACK);
+  gl::Enable(gl::DEPTH_TEST);
 
   // Setup buffer for cube.
   GLuint buffer;
@@ -190,7 +288,7 @@ int main(int argc, char* argv[])
 
   // Populate buffer
   gl::BindBuffer(gl::ARRAY_BUFFER, buffer);
-  gl::BufferData(gl::ARRAY_BUFFER, 3*6*2*3*sizeof(float), cube_data, gl::STATIC_DRAW);
+  gl::BufferData(gl::ARRAY_BUFFER, 6*2*3*3*sizeof(float), cube_data, gl::STATIC_DRAW);
 
   // Bind the data buffer to the VAO
   GLuint vao;
@@ -208,7 +306,7 @@ int main(int argc, char* argv[])
   basicProgram.setUniform("view", view);
 
   // Setup rotation modifiers
-  float orbit_radius = 8.0f;
+  float orbit_radius = 2.0f;
   float rotate_factor = 0.001f;
   vec2 rotate_angles = vec2(0.0f, 0.0f);
 
@@ -275,7 +373,7 @@ int main(int argc, char* argv[])
     for(int x = -1; x < 2; ++x) {
       for(int y = -1; y < 2; ++y) {
         for(int z = -1; z < 2; ++z) {
-          if(x == 0 && y == 0 && z == 0)
+          if(x != 0 || y != 0 || z != 0)
             continue;
 
           mat4 model;
