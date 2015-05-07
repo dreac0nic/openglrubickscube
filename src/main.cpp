@@ -155,7 +155,7 @@ int main(int argc, char* argv[])
     vec3( 0.0f, -1.0f,  0.0f),
     vec3( 0.0f,  0.0f,  1.0f),
     vec3( 0.0f,  0.0f, -1.0f)
-  }
+  };
 
   static const vec3 color_data[] = {
     vec3(1.0f, 0.0f, 0.0f), // RED
@@ -424,14 +424,142 @@ int main(int argc, char* argv[])
     color_data[3][2]
   };
 
+  static const float cube_normal[] = {
+    // Front
+    normal_data[2][0],
+    normal_data[2][1],
+    normal_data[2][2],
+    normal_data[2][0],
+    normal_data[2][1],
+    normal_data[2][2],
+    normal_data[2][0],
+    normal_data[2][1],
+    normal_data[2][2],
+
+    normal_data[2][0],
+    normal_data[2][1],
+    normal_data[2][2],
+    normal_data[2][0],
+    normal_data[2][1],
+    normal_data[2][2],
+    normal_data[2][0],
+    normal_data[2][1],
+    normal_data[2][2],
+
+    // Bottom
+    normal_data[3][0],
+    normal_data[3][1],
+    normal_data[3][2],
+    normal_data[3][0],
+    normal_data[3][1],
+    normal_data[3][2],
+    normal_data[3][0],
+    normal_data[3][1],
+    normal_data[3][2],
+
+    normal_data[3][0],
+    normal_data[3][1],
+    normal_data[3][2],
+    normal_data[3][0],
+    normal_data[3][1],
+    normal_data[3][2],
+    normal_data[3][0],
+    normal_data[3][1],
+    normal_data[3][2],
+
+    // Left
+    normal_data[0][0],
+    normal_data[0][1],
+    normal_data[0][2],
+    normal_data[0][0],
+    normal_data[0][1],
+    normal_data[0][2],
+    normal_data[0][0],
+    normal_data[0][1],
+    normal_data[0][2],
+
+    normal_data[0][0],
+    normal_data[0][1],
+    normal_data[0][2],
+    normal_data[0][0],
+    normal_data[0][1],
+    normal_data[0][2],
+    normal_data[0][0],
+    normal_data[0][1],
+    normal_data[0][2],
+
+    // Right
+    normal_data[1][0],
+    normal_data[1][1],
+    normal_data[1][2],
+    normal_data[1][0],
+    normal_data[1][1],
+    normal_data[1][2],
+    normal_data[1][0],
+    normal_data[1][1],
+    normal_data[1][2],
+
+    normal_data[1][0],
+    normal_data[1][1],
+    normal_data[1][2],
+    normal_data[1][0],
+    normal_data[1][1],
+    normal_data[1][2],
+    normal_data[1][0],
+    normal_data[1][1],
+    normal_data[1][2],
+
+    // Front
+    normal_data[4][0],
+    normal_data[4][1],
+    normal_data[4][2],
+    normal_data[4][0],
+    normal_data[4][1],
+    normal_data[4][2],
+    normal_data[4][0],
+    normal_data[4][1],
+    normal_data[4][2],
+
+    normal_data[4][0],
+    normal_data[4][1],
+    normal_data[4][2],
+    normal_data[4][0],
+    normal_data[4][1],
+    normal_data[4][2],
+    normal_data[4][0],
+    normal_data[4][1],
+    normal_data[4][2],
+
+    // Bottom
+    normal_data[5][0],
+    normal_data[5][1],
+    normal_data[5][2],
+    normal_data[5][0],
+    normal_data[5][1],
+    normal_data[5][2],
+    normal_data[5][0],
+    normal_data[5][1],
+    normal_data[5][2],
+
+    normal_data[5][0],
+    normal_data[5][1],
+    normal_data[5][2],
+    normal_data[5][0],
+    normal_data[5][1],
+    normal_data[5][2],
+    normal_data[5][0],
+    normal_data[5][1],
+    normal_data[5][2]
+  };
+
   // State setup
   gl::ClearColor(0.95f, 0.95f, 0.95f, 1.0f);
   gl::CullFace(gl::FRONT_AND_BACK);
   gl::Enable(gl::DEPTH_TEST);
 
   // Setup buffers for cube.
-  GLuint buffers[2];
-  gl::GenBuffers(2, buffers);
+  GLuint buffers[3];
+  gl::GenBuffers(3, buffers);
 
   // Populate position buffer
   gl::BindBuffer(gl::ARRAY_BUFFER, buffers[0]);
@@ -455,6 +583,14 @@ int main(int argc, char* argv[])
   // Enable VAO for color
   gl::EnableVertexAttribArray(1);
   gl::VertexAttribPointer(1, 3, gl::FLOAT, gl::FALSE_, 0, NULL);
+
+  // Populate normal buffer
+  gl::BindBuffer(gl::ARRAY_BUFFER, buffers[2]);
+  gl::BufferData(gl::ARRAY_BUFFER, sizeof(cube_normal), cube_normal, gl::STATIC_DRAW);
+
+  // Enable VAO for color
+  gl::EnableVertexAttribArray(2);
+  gl::VertexAttribPointer(2, 3, gl::FLOAT, gl::FALSE_, 0, NULL);
 
   // Set uniform, as it won't need be changed.
   basicProgram.setUniform("projection", projection);
