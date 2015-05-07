@@ -113,8 +113,8 @@ int main(int argc, char* argv[])
 
   // Setup shader program
   Program basicProgram;
-  basicProgram.compileShader("src/shaders/simplemvp.glsl.vert");
-  basicProgram.compileShader("src/shaders/weirdcolors.glsl.frag");
+  basicProgram.compileShader("src/shaders/colormvp.glsl.vert");
+  basicProgram.compileShader("src/shaders/color.glsl.frag");
 
   basicProgram.link();
 
@@ -331,46 +331,46 @@ int main(int argc, char* argv[])
     color_data[5][2],
 
     // Left
-    color_data[4][0],
-    color_data[4][1],
-    color_data[4][2],
-    color_data[4][0],
-    color_data[4][1],
-    color_data[4][2],
-    color_data[4][0],
-    color_data[4][1],
-    color_data[4][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
 
-    color_data[4][0],
-    color_data[4][1],
-    color_data[4][2],
-    color_data[4][0],
-    color_data[4][1],
-    color_data[4][2],
-    color_data[4][0],
-    color_data[4][1],
-    color_data[4][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
 
     // Right
-    color_data[2][0],
-    color_data[2][1],
-    color_data[2][2],
-    color_data[2][0],
-    color_data[2][1],
-    color_data[2][2],
-    color_data[2][0],
-    color_data[2][1],
-    color_data[2][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
 
-    color_data[2][0],
-    color_data[2][1],
-    color_data[2][2],
-    color_data[2][0],
-    color_data[2][1],
-    color_data[2][2],
-    color_data[2][0],
-    color_data[2][1],
-    color_data[2][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
 
     // Front
     color_data[1][0],
