@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
 
   // Setup scene matrices
   mat4 projection = perspective(45.0f, 4.0f/3.0f, 0.1f, 100.0f);
-  mat4 view = rotate(translate(mat4(1.0f), vec3(0.0f, 0.0f, -8.0f)), 45.0f, vec3(1.0f, 1.0f, 0.0f));
+  mat4 view = translate(mat4(1.0f), vec3(0.0f, 0.0f, -8.0f));
   mat4 model = mat4(1.0f);
   mat4 mvp = projection*view*model;
 
@@ -307,8 +307,8 @@ int main(int argc, char* argv[])
 
   // Setup rotation modifiers
   float orbit_radius = 8.0f;
-  float rotate_factor = 0.001f;
-  vec2 rotate_angles = vec2(0.0f, 0.0f);
+  float rotate_factor = 0.005f;
+  vec2 rotate_angles = vec2(3.145159f/2, 0.0f);
 
   // Setup mouse positions.
   glm::vec2 originalMousePosition;
@@ -328,9 +328,12 @@ int main(int argc, char* argv[])
       if(currentMouseState != MOUSE_RIGHT_DRAG) {
         currentMouseState = MOUSE_RIGHT_DRAG;
         glfwSetInputMode(hWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-      }
 
-      glfwGetCursorPos(hWindow, &x, &y);
+        x = window_width/2;
+        y = window_height/2;
+      } else
+        glfwGetCursorPos(hWindow, &x, &y);
+
       glfwSetCursorPos(hWindow, window_width/2, window_height/2);
 
       mouseDelta = glm::vec2(x - window_width/2.0, y - window_height/2.0);
