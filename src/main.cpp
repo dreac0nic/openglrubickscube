@@ -445,7 +445,7 @@ int main(int argc, char* argv[])
 
   // Enable VAO for color
   gl::EnableVertexAttribArray(1);
-  gl::VertexAttribPoint(1, 3, gl::FLOAT, gl::FALSE_, 0, NULL);
+  gl::VertexAttribPointer(1, 3, gl::FLOAT, gl::FALSE_, 0, NULL);
 
   // Set uniform, as it won't need be changed.
   basicProgram.setUniform("projection", projection);
