@@ -113,8 +113,8 @@ int main(int argc, char* argv[])
 
   // Setup shader program
   Program basicProgram;
-  basicProgram.compileShader("src/shaders/lightingmvp.glsl.vert");
-  basicProgram.compileShader("src/shaders/lighting.glsl.frag");
+  basicProgram.compileShader("src/shaders/colormvp.glsl.vert");
+  basicProgram.compileShader("src/shaders/color.glsl.frag");
 
   basicProgram.link();
 
@@ -595,8 +595,6 @@ int main(int argc, char* argv[])
   // Set uniform, as it won't need be changed.
   basicProgram.setUniform("projection", projection);
   basicProgram.setUniform("view", view);
-
-  basicProgram.setUniform("light_direction", vec3(0.0f, 1.0f, 0.0f));
 
   // Setup rotation modifiers
   float orbit_radius = 8.0f;
