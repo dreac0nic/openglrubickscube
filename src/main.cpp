@@ -148,6 +148,15 @@ int main(int argc, char* argv[])
     //*/
   };
 
+  static const vec3 normal_data[] = {
+    vec3( 1.0f,  0.0f,  0.0f),
+    vec3(-1.0f,  0.0f,  0.0f),
+    vec3( 0.0f,  1.0f,  0.0f),
+    vec3( 0.0f, -1.0f,  0.0f),
+    vec3( 0.0f,  0.0f,  1.0f),
+    vec3( 0.0f,  0.0f, -1.0f)
+  }
+
   static const vec3 color_data[] = {
     vec3(1.0f, 0.0f, 0.0f), // RED
     vec3(0.0f, 1.0f, 0.0f), // GREEN
