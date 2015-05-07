@@ -148,6 +148,15 @@ int main(int argc, char* argv[])
     //*/
   };
 
+  static const vec3 color_data[] = {
+    vec3(1.0f, 0.0f, 0.0f), // RED
+    vec3(0.0f, 1.0f, 0.0f), // GREEN
+    vec3(1.0f, 1.0f, 0.0f), // YELLOW
+    vec3(0.0f, 0.0f, 1.0f), // BLUE
+    vec3(1.0f, 1.0f, 1.0f), // WHITE
+    vec3(1.0f, 0.5f, 0.0f)  // ORANGE
+  };
+
   static const float cube_data[] = {
     //*
     // Top
@@ -277,6 +286,134 @@ int main(int argc, char* argv[])
     vertex_data[5][2]
     //*/
   };
+
+  static const float cube_color[] = {
+    // Top
+    color_data[0][0],
+    color_data[0][1],
+    color_data[0][2],
+    color_data[0][0],
+    color_data[0][1],
+    color_data[0][2],
+    color_data[0][0],
+    color_data[0][1],
+    color_data[0][2],
+
+    color_data[0][0],
+    color_data[0][1],
+    color_data[0][2],
+    color_data[0][0],
+    color_data[0][1],
+    color_data[0][2],
+    color_data[0][0],
+    color_data[0][1],
+    color_data[0][2],
+
+    // Bottom
+    color_data[5][0],
+    color_data[5][1],
+    color_data[5][2],
+    color_data[5][0],
+    color_data[5][1],
+    color_data[5][2],
+    color_data[5][0],
+    color_data[5][1],
+    color_data[5][2],
+
+    color_data[5][0],
+    color_data[5][1],
+    color_data[5][2],
+    color_data[5][0],
+    color_data[5][1],
+    color_data[5][2],
+    color_data[5][0],
+    color_data[5][1],
+    color_data[5][2],
+
+    // Left
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+    color_data[4][0],
+    color_data[4][1],
+    color_data[4][2],
+
+    // Right
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+    color_data[2][0],
+    color_data[2][1],
+    color_data[2][2],
+
+    // Front
+    color_data[1][0],
+    color_data[1][1],
+    color_data[1][2],
+    color_data[1][0],
+    color_data[1][1],
+    color_data[1][2],
+    color_data[1][0],
+    color_data[1][1],
+    color_data[1][2],
+
+    color_data[1][0],
+    color_data[1][1],
+    color_data[1][2],
+    color_data[1][0],
+    color_data[1][1],
+    color_data[1][2],
+    color_data[1][0],
+    color_data[1][1],
+    color_data[1][2],
+
+    // Back
+    color_data[3][0],
+    color_data[3][1],
+    color_data[3][2],
+    color_data[3][0],
+    color_data[3][1],
+    color_data[3][2],
+    color_data[3][0],
+    color_data[3][1],
+    color_data[3][2],
+
+    color_data[3][0],
+    color_data[3][1],
+    color_data[3][2],
+    color_data[3][0],
+    color_data[3][1],
+    color_data[3][2],
+    color_data[3][0],
+    color_data[3][1],
+    color_data[3][2]
+  }
 
   // State setup
   gl::CullFace(gl::FRONT_AND_BACK);
