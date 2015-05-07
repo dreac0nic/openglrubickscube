@@ -416,16 +416,18 @@ int main(int argc, char* argv[])
   }
 
   // State setup
+  gl::ClearColor(0.95f, 0.95f, 0.95f, 1.0f);
   gl::CullFace(gl::FRONT_AND_BACK);
   gl::Enable(gl::DEPTH_TEST);
 
-  // Setup buffer for cube.
-  GLuint buffer;
-  gl::GenBuffers(1, &buffer);
+  // Setup buffers for cube.
+  GLuint buffers[2];
+  gl::GenBuffers(2, buffers);
 
-  // Populate buffer
-  gl::BindBuffer(gl::ARRAY_BUFFER, buffer);
-  gl::BufferData(gl::ARRAY_BUFFER, 6*2*3*3*sizeof(float), cube_data, gl::STATIC_DRAW);
+  // Populate position buffer
+  gl::BindBuffer(gl::ARRAY_BUFFER, buffers[0]);
+  //gl::BufferData(gl::ARRAY_BUFFER, 6*2*3*3*sizeof(float), cube_data, gl::STATIC_DRAW);
+  gl::BufferData(gl::ARRAY_BUFFER, sizeof(cube_data), cube_data, gl::STATIC_DRAW);
 
   // Bind the data buffer to the VAO
   GLuint vao;
@@ -436,7 +438,14 @@ int main(int argc, char* argv[])
   gl::EnableVertexAttribArray(0);
   gl::VertexAttribPointer(0, 3, gl::FLOAT, gl::FALSE_, 0, NULL);
 
-  gl::ClearColor(0.95f, 0.95f, 0.95f, 1.0f);
+  // Populate color buffer
+  gl::BindBuffer(gl::ARRAY_BUFFER, buffers[1]);
+  //gl::BufferData(gl::ARRAY_BUFFER, 6*2*3*3*sizeof(float), cube_color, gl::STATIC_DRAW);
+  gl::BufferData(gl::ARRAY_BUFFER, sizeof(cube_color), cube_color, gl::STATIC_DRAW);
+
+  // Enable VAO for color
+  gl::EnableVertexAttribArray(1);
+  gl::VertexAttribPoint(1, 3, gl::FLOAT, gl::FALSE_, 0, NULL);
 
   // Set uniform, as it won't need be changed.
   basicProgram.setUniform("projection", projection);
