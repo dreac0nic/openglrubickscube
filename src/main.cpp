@@ -413,7 +413,7 @@ int main(int argc, char* argv[])
     color_data[3][0],
     color_data[3][1],
     color_data[3][2]
-  }
+  };
 
   // State setup
   gl::ClearColor(0.95f, 0.95f, 0.95f, 1.0f);
